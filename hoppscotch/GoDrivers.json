@@ -1,1 +1,93 @@
-{"name":"GoDrivers","requests":[{"body":{"body":"{\n    \"id\": 1,\n    \"name\": \"João\",\n    \"birthdate\": \"1986-08-18T03:00:00.000Z\"\n}","contentType":"application/json"},"params":[],"v":"1","headers":[],"endpoint":"http://localhost:8080/driver","name":"Create Driver","preRequestScript":"","testScript":"","method":"POST","auth":{"key":"","value":"","authActive":true,"authType":"none","addTo":"Headers"}},{"testScript":"","params":[],"v":"1","method":"GET","body":{"contentType":null,"body":null},"auth":{"authType":"none","value":"","addTo":"Headers","key":"","authActive":true},"name":"Home","endpoint":"http://localhost:8080","preRequestScript":"","headers":[]},{"v":"1","name":"Get Drivers","preRequestScript":"","method":"GET","auth":{"authActive":true,"authType":"none","key":"","addTo":"Headers","value":""},"endpoint":"http://localhost:8080/driver","headers":[],"testScript":"","body":{"contentType":null,"body":null},"params":[]},{"v":"1","endpoint":"http://localhost:8080/driver/1","name":"Get Driver by Id","params":[],"headers":[],"method":"GET","auth":{"authActive":true,"authType":"none","key":"","addTo":"Headers","value":""},"preRequestScript":"","testScript":"","body":{"contentType":null,"body":null}}],"v":1,"folders":[]}
+[
+  {
+    "name": "GoDrivers",
+    "v": 1,
+    "folders": [],
+    "requests": [
+      {
+        "v": "1",
+        "headers": [],
+        "body": {
+          "body": "{\n    \"id\": 1,\n    \"name\": \"João\",\n    \"birthdate\": \"1986-08-18T03:00:00.000Z\"\n}",
+          "contentType": "application/json"
+        },
+        "endpoint": "http://localhost:<<port>>/driver",
+        "auth": {
+          "authActive": true,
+          "key": "",
+          "addTo": "Headers",
+          "value": "",
+          "authType": "none"
+        },
+        "testScript": "",
+        "name": "Create Driver",
+        "params": [],
+        "method": "POST",
+        "preRequestScript": ""
+      },
+      {
+        "method": "GET",
+        "endpoint": "http://localhost:<<port>>",
+        "preRequestScript": "",
+        "body": {
+          "body": null,
+          "contentType": null
+        },
+        "v": "1",
+        "params": [],
+        "auth": {
+          "authType": "none",
+          "value": "",
+          "authActive": true,
+          "addTo": "Headers",
+          "key": ""
+        },
+        "testScript": "",
+        "name": "Home",
+        "headers": []
+      },
+      {
+        "name": "Get Drivers",
+        "v": "1",
+        "preRequestScript": "",
+        "body": {
+          "body": null,
+          "contentType": null
+        },
+        "auth": {
+          "authActive": true,
+          "addTo": "Headers",
+          "key": "",
+          "authType": "none",
+          "value": ""
+        },
+        "params": [],
+        "endpoint": "http://localhost:<<port>>/driver",
+        "headers": [],
+        "testScript": "",
+        "method": "GET"
+      },
+      {
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "headers": [],
+        "params": [],
+        "preRequestScript": "",
+        "method": "GET",
+        "testScript": "",
+        "auth": {
+          "addTo": "Headers",
+          "key": "",
+          "value": "",
+          "authActive": true,
+          "authType": "none"
+        },
+        "name": "Get Driver by Id",
+        "v": "1",
+        "endpoint": "http://localhost:<<port>>/driver/1"
+      }
+    ]
+  }
+]

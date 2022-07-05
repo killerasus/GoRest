@@ -47,7 +47,7 @@ func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
 	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "home.tmpl", gin.H{"message": "Hello CAR World!"})
+		c.HTML(http.StatusOK, "home.html", gin.H{"title": "CAR", "message": "Hello CAR World!"})
 	})
 	r.GET("/driver", getDrivers)
 	r.GET("/driver/:id", getDriverById)

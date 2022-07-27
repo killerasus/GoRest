@@ -11,7 +11,7 @@
           "body": "{\n    \"id\": 1,\n    \"name\": \"João\",\n    \"birthdate\": \"1986-08-18T03:00:00.000Z\"\n}",
           "contentType": "application/json"
         },
-        "endpoint": "http://localhost:<<port>>/driver",
+        "endpoint": "http://localhost:<<port>>/drivers",
         "auth": {
           "authActive": true,
           "key": "",
@@ -62,7 +62,7 @@
           "value": ""
         },
         "params": [],
-        "endpoint": "http://localhost:<<port>>/driver",
+        "endpoint": "http://localhost:<<port>>/drivers",
         "headers": [],
         "testScript": "",
         "method": "GET"
@@ -86,7 +86,7 @@
         },
         "name": "Get Driver by Id",
         "v": "1",
-        "endpoint": "http://localhost:<<port>>/driver/1"
+        "endpoint": "http://localhost:<<port>>/drivers/1"
       }
     ]
   }

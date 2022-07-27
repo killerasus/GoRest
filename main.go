@@ -3,21 +3,15 @@ package main
 import (
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/killerasus/gorest/godriver"
 )
 
-type Driver struct {
-	ID        int       `json:"id"`
-	Name      string    `json:"name"`
-	Birthdate time.Time `json:"birthdate"`
-}
-
-var drivers []Driver //@TODO: Use database instead
+var database godriver.Database
 
 func getDrivers(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, drivers)
+	c.IndentedJSON(http.StatusOK, database.Drivers)
 }
 
 func getDriverById(c *gin.Context) {
@@ -25,7 +19,7 @@ func getDriverById(c *gin.Context) {
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid id"})
 	}
-	for _, d := range drivers {
+	for _, d := range database.Drivers {
 		if d.ID == id {
 			c.IndentedJSON(http.StatusOK, d)
 			return
@@ -35,11 +29,11 @@ func getDriverById(c *gin.Context) {
 }
 
 func createDriver(c *gin.Context) {
-	var driver Driver
+	var driver godriver.Driver
 	if err := c.BindJSON(&driver); err != nil {
 		return
 	}
-	drivers = append(drivers, driver)
+	database.Drivers = append(database.Drivers, driver)
 	c.IndentedJSON(http.StatusCreated, gin.H{"message": "Driver created"})
 }
 
@@ -49,9 +43,9 @@ func main() {
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "home.html", gin.H{"title": "CAR", "message": "Hello CAR World!"})
 	})
-	r.GET("/driver", getDrivers)
-	r.GET("/driver/:id", getDriverById)
-	r.POST("/driver", createDriver)
+	r.GET("/drivers", getDrivers)
+	r.GET("/drivers/:id", getDriverById)
+	r.POST("/drivers", createDriver)
 
 	r.Run("localhost:8080")
 }

@@ -2,9 +2,9 @@ package main
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/killerasus/gorest/godriver"
 )
 
@@ -15,17 +15,19 @@ func getDrivers(c *gin.Context) {
 }
 
 func getDriverById(c *gin.Context) {
-	id, err := strconv.Atoi(c.Param("id"))
+	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid id"})
+		return
 	}
-	for _, d := range database.Drivers {
-		if d.ID == id {
-			c.IndentedJSON(http.StatusOK, d)
-			return
-		}
+
+	d, err := database.GetDriver(id)
+	if err != nil {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
+		return
 	}
-	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Driver not found"})
+
+	c.IndentedJSON(http.StatusOK, d)
 }
 
 func createDriver(c *gin.Context) {
@@ -33,8 +35,28 @@ func createDriver(c *gin.Context) {
 	if err := c.BindJSON(&driver); err != nil {
 		return
 	}
-	database.Drivers = append(database.Drivers, driver)
-	c.IndentedJSON(http.StatusCreated, gin.H{"message": "Driver created"})
+	driver = database.CreateDriver(driver)
+	c.IndentedJSON(http.StatusCreated, driver)
+}
+
+func updateDriver(c *gin.Context) {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid id"})
+		return
+	}
+
+	var driver godriver.Driver
+	if err := c.BindJSON(&driver); err != nil {
+		return
+	}
+
+	d, err := database.UpdateDriver(id, driver)
+	if err == nil {
+		c.IndentedJSON(http.StatusCreated, d)
+	} else {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
+	}
 }
 
 func main() {
@@ -46,6 +68,7 @@ func main() {
 	r.GET("/drivers", getDrivers)
 	r.GET("/drivers/:id", getDriverById)
 	r.POST("/drivers", createDriver)
+	r.PUT("/drivers/:id", updateDriver)
 
 	r.Run("localhost:8080")
 }

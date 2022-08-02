@@ -1,93 +1,114 @@
 [
   {
-    "name": "GoDrivers",
-    "v": 1,
-    "folders": [],
     "requests": [
       {
         "v": "1",
-        "headers": [],
-        "body": {
-          "body": "{\n    \"id\": 1,\n    \"name\": \"João\",\n    \"birthdate\": \"1986-08-18T03:00:00.000Z\"\n}",
-          "contentType": "application/json"
-        },
         "endpoint": "http://localhost:<<port>>/drivers",
-        "auth": {
-          "authActive": true,
-          "key": "",
-          "addTo": "Headers",
-          "value": "",
-          "authType": "none"
-        },
-        "testScript": "",
         "name": "Create Driver",
         "params": [],
-        "method": "POST",
-        "preRequestScript": ""
-      },
-      {
-        "method": "GET",
-        "endpoint": "http://localhost:<<port>>",
-        "preRequestScript": "",
-        "body": {
-          "body": null,
-          "contentType": null
-        },
-        "v": "1",
-        "params": [],
-        "auth": {
-          "authType": "none",
-          "value": "",
-          "authActive": true,
-          "addTo": "Headers",
-          "key": ""
-        },
-        "testScript": "",
-        "name": "Home",
-        "headers": []
-      },
-      {
-        "name": "Get Drivers",
-        "v": "1",
-        "preRequestScript": "",
-        "body": {
-          "body": null,
-          "contentType": null
-        },
-        "auth": {
-          "authActive": true,
-          "addTo": "Headers",
-          "key": "",
-          "authType": "none",
-          "value": ""
-        },
-        "params": [],
-        "endpoint": "http://localhost:<<port>>/drivers",
         "headers": [],
+        "method": "POST",
+        "auth": {
+          "key": "",
+          "value": "",
+          "authType": "none",
+          "addTo": "Headers",
+          "authActive": true
+        },
+        "preRequestScript": "",
         "testScript": "",
-        "method": "GET"
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n    \"name\": \"João\",\n    \"birthdate\": \"1986-08-18T03:00:00.000Z\"\n}"
+        }
       },
       {
         "body": {
           "contentType": null,
           "body": null
         },
-        "headers": [],
-        "params": [],
-        "preRequestScript": "",
+        "v": "1",
+        "endpoint": "http://localhost:<<port>>",
+        "name": "Home",
         "method": "GET",
         "testScript": "",
+        "preRequestScript": "",
+        "headers": [],
         "auth": {
+          "authType": "none",
+          "authActive": true,
+          "addTo": "Headers",
+          "value": "",
+          "key": ""
+        },
+        "params": []
+      },
+      {
+        "params": [],
+        "method": "GET",
+        "headers": [],
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "preRequestScript": "",
+        "auth": {
+          "value": "",
           "addTo": "Headers",
           "key": "",
+          "authType": "none",
+          "authActive": true
+        },
+        "testScript": "",
+        "v": "1",
+        "endpoint": "http://localhost:<<port>>/drivers",
+        "name": "Get Drivers"
+      },
+      {
+        "auth": {
+          "key": "",
           "value": "",
-          "authActive": true,
-          "authType": "none"
+          "authType": "none",
+          "addTo": "Headers",
+          "authActive": true
+        },
+        "testScript": "",
+        "preRequestScript": "",
+        "method": "GET",
+        "params": [],
+        "body": {
+          "contentType": null,
+          "body": null
         },
         "name": "Get Driver by Id",
+        "headers": [],
         "v": "1",
         "endpoint": "http://localhost:<<port>>/drivers/1"
+      },
+      {
+        "v": "1",
+        "endpoint": "http://localhost:<<port>>/drivers/1",
+        "name": "Update Driver by Id",
+        "params": [],
+        "headers": [],
+        "method": "PUT",
+        "auth": {
+          "value": "",
+          "authType": "none",
+          "addTo": "Headers",
+          "key": "",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n    \"name\": \"Bernardo\",\n    \"birthdate\": \"1986-08-18T03:00:00.000Z\"\n}"
+        }
       }
-    ]
+    ],
+    "folders": [],
+    "name": "GoDrivers",
+    "v": 1
   }
 ]

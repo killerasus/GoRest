@@ -59,6 +59,21 @@ func updateDriver(c *gin.Context) {
 	}
 }
 
+func removeDriver(c *gin.Context) {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid id"})
+		return
+	}
+
+	if _, err := database.RemoveDriver(id); err != nil {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
+	} else {
+		c.IndentedJSON(http.StatusAccepted, gin.H{"message": "Driver " + id.String() + " removed"})
+	}
+
+}
+
 func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
@@ -69,6 +84,7 @@ func main() {
 	r.GET("/drivers/:id", getDriverById)
 	r.POST("/drivers", createDriver)
 	r.PUT("/drivers/:id", updateDriver)
+	r.DELETE("/drivers/:id", removeDriver)
 
 	r.Run("localhost:8080")
 }

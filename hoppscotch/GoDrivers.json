@@ -105,6 +105,27 @@
           "contentType": "application/json",
           "body": "{\n    \"name\": \"Bernardo\",\n    \"birthdate\": \"1986-08-18T03:00:00.000Z\"\n}"
         }
+      },
+      {
+        "v": "1",
+        "endpoint": "http://localhost:<<port>>/drivers/1",
+        "name": "Delete Driver",
+        "params": [],
+        "headers": [],
+        "method": "DELETE",
+        "auth": {
+          "authType": "none",
+          "authActive": true,
+          "key": "",
+          "addTo": "Headers",
+          "value": ""
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        }
       }
     ],
     "folders": [],

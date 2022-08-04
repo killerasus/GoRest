@@ -47,3 +47,23 @@ func (db *Database) UpdateDriver(id uuid.UUID, driver Driver) (Driver, error) {
 
 	return d, err
 }
+
+func (db *Database) PatchDriver(id uuid.UUID, patch DriverPatch) error {
+	d, err := db.GetDriver(id)
+	if err != nil {
+		return err
+	}
+
+	if patch.Name != nil {
+		d.Name = *patch.Name
+	}
+	if patch.Birthdate != nil {
+		d.Birthdate = *patch.Birthdate
+	}
+
+	if _, err = db.UpdateDriver(id, d); err != nil {
+		return err
+	}
+
+	return nil
+}

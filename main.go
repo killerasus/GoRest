@@ -59,6 +59,28 @@ func updateDriver(c *gin.Context) {
 	}
 }
 
+func patchDriver(c *gin.Context) {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid id"})
+		return
+	}
+
+	var patch godriver.DriverPatch
+	if err := c.BindJSON(&patch); err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": err})
+		return
+	}
+
+	if err = database.PatchDriver(id, patch); err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": err})
+		return
+	}
+
+	d, _ := database.GetDriver(id)
+	c.IndentedJSON(http.StatusAccepted, d)
+}
+
 func removeDriver(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {
@@ -84,6 +106,7 @@ func main() {
 	r.GET("/drivers/:id", getDriverById)
 	r.POST("/drivers", createDriver)
 	r.PUT("/drivers/:id", updateDriver)
+	r.PATCH("/drivers/:id", patchDriver)
 	r.DELETE("/drivers/:id", removeDriver)
 
 	r.Run("localhost:8080")

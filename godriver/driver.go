@@ -11,3 +11,8 @@ type Driver struct {
 	Name      string    `json:"name"`
 	Birthdate time.Time `json:"birthdate"`
 }
+
+type DriverPatch struct {
+	Name      *string    `json:"name,omitempty"`
+	Birthdate *time.Time `json:"birthdate,omitempty"`
+}

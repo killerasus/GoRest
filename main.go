@@ -96,18 +96,112 @@ func removeDriver(c *gin.Context) {
 
 }
 
+func getPassengers(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, database.Passengers)
+}
+
+func getPassengerById(c *gin.Context) {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid id"})
+		return
+	}
+
+	p, err := database.GetPassenger(id)
+	if err != nil {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, p)
+}
+
+func createPassenger(c *gin.Context) {
+	var passenger godriver.Passenger
+	if err := c.BindJSON(&passenger); err != nil {
+		return
+	}
+	passenger = database.CreatePassenger(passenger)
+	c.IndentedJSON(http.StatusCreated, passenger)
+}
+
+func updatePassenger(c *gin.Context) {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid id"})
+		return
+	}
+
+	var passenger godriver.Passenger
+	if err := c.BindJSON(&passenger); err != nil {
+		return
+	}
+
+	p, err := database.UpdatePassenger(id, passenger)
+	if err == nil {
+		c.IndentedJSON(http.StatusCreated, p)
+	} else {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
+	}
+}
+
+func patchPassenger(c *gin.Context) {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid id"})
+		return
+	}
+
+	var patch godriver.PassengerPatch
+	if err := c.BindJSON(&patch); err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": err})
+		return
+	}
+
+	if err = database.PatchPassenger(id, patch); err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": err})
+		return
+	}
+
+	p, _ := database.GetPassenger(id)
+	c.IndentedJSON(http.StatusAccepted, p)
+}
+
+func removePassenger(c *gin.Context) {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid id"})
+		return
+	}
+
+	if _, err := database.RemovePassenger(id); err != nil {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
+	} else {
+		c.IndentedJSON(http.StatusAccepted, gin.H{"message": "Passenger " + id.String() + " removed"})
+	}
+
+}
+
 func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "home.html", gin.H{"title": "CAR", "message": "Hello CAR World!"})
 	})
+
 	r.GET("/drivers", getDrivers)
 	r.GET("/drivers/:id", getDriverById)
 	r.POST("/drivers", createDriver)
 	r.PUT("/drivers/:id", updateDriver)
 	r.PATCH("/drivers/:id", patchDriver)
 	r.DELETE("/drivers/:id", removeDriver)
+
+	r.GET("/passengers", getPassengers)
+	r.GET("/passengers/:id", getPassengerById)
+	r.POST("/passengers", createPassenger)
+	r.PUT("/passengers/:id", updatePassenger)
+	r.PATCH("/passengers/:id", patchPassenger)
+	r.DELETE("/passengers/:id", removePassenger)
 
 	r.Run("localhost:8080")
 }

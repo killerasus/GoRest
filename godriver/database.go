@@ -7,7 +7,8 @@ import (
 )
 
 type Database struct {
-	Drivers []Driver
+	Drivers    []Driver
+	Passengers []Passenger
 }
 
 func (db *Database) CreateDriver(d Driver) Driver {
@@ -62,6 +63,61 @@ func (db *Database) PatchDriver(id uuid.UUID, patch DriverPatch) error {
 	}
 
 	if _, err = db.UpdateDriver(id, d); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (db *Database) CreatePassenger(p Passenger) Passenger {
+	p.ID = uuid.New()
+	db.Passengers = append(db.Passengers, p)
+	return p
+}
+
+func (db *Database) GetPassenger(id uuid.UUID) (Passenger, error) {
+	for i, p := range db.Passengers {
+		if p.ID == id {
+			return db.Passengers[i], nil
+		}
+	}
+	return Passenger{}, errors.New("Passenger " + id.String() + " not found.")
+}
+
+func (db *Database) RemovePassenger(id uuid.UUID) (Passenger, error) {
+	for i, p := range db.Passengers {
+		if p.ID == id {
+			passenger := db.Passengers[i]
+			db.Passengers = append(db.Passengers[:i], db.Passengers[i+1:]...)
+			return passenger, nil
+		}
+	}
+
+	return Passenger{}, errors.New("Passenger " + id.String() + " not found.")
+}
+
+func (db *Database) UpdatePassenger(id uuid.UUID, passenger Passenger) (Passenger, error) {
+	p, err := db.RemovePassenger(id)
+	if err == nil {
+		passenger.ID = id
+		db.Passengers = append(db.Passengers, passenger)
+		return passenger, nil
+	}
+
+	return p, err
+}
+
+func (db *Database) PatchPassenger(id uuid.UUID, patch PassengerPatch) error {
+	p, err := db.GetPassenger(id)
+	if err != nil {
+		return err
+	}
+
+	if patch.Name != nil {
+		p.Name = *patch.Name
+	}
+
+	if _, err = db.UpdatePassenger(id, p); err != nil {
 		return err
 	}
 

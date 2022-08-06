@@ -2,13 +2,15 @@ package godriver
 
 import (
 	"errors"
+	"time"
 
 	"github.com/google/uuid"
 )
 
 type Database struct {
-	Drivers    []Driver
-	Passengers []Passenger
+	Drivers        []Driver
+	Passengers     []Passenger
+	TravelRequests []TravelRequest
 }
 
 func (db *Database) CreateDriver(d Driver) Driver {
@@ -122,4 +124,31 @@ func (db *Database) PatchPassenger(id uuid.UUID, patch PassengerPatch) error {
 	}
 
 	return nil
+}
+
+func (db *Database) SaveTravelRequest(t TravelRequestInput) (TravelRequest, error) {
+	var tr TravelRequest
+
+	_, err := db.GetPassenger(*t.Passenger)
+	if err != nil {
+		return tr, err
+	}
+
+	if *t.Origin == "" {
+		return tr, errors.New("origin unknown")
+	}
+
+	if *t.Destination == "" {
+		return tr, errors.New("destination unknown")
+	}
+
+	tr.ID = uuid.New()
+	tr.Passenger = *t.Passenger
+	tr.Origin = *t.Origin
+	tr.Destination = *t.Destination
+	tr.Status = Created
+	tr.CreationDate = time.Now()
+	db.TravelRequests = append(db.TravelRequests, tr)
+
+	return tr, nil
 }

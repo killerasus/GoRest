@@ -179,7 +179,34 @@ func removePassenger(c *gin.Context) {
 	} else {
 		c.IndentedJSON(http.StatusAccepted, gin.H{"message": "Passenger " + id.String() + " removed"})
 	}
+}
 
+func createTravelRequest(c *gin.Context) {
+	var travel godriver.TravelRequestInput
+	if err := c.BindJSON(&travel); err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": err})
+		return
+	}
+
+	switch {
+	case travel.Passenger == nil:
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Passenger field missing"})
+		return
+	case travel.Origin == nil:
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Origin field missing"})
+		return
+	case travel.Destination == nil:
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Destination field missing"})
+		return
+	}
+
+	created, err := database.SaveTravelRequest(travel)
+	if err != nil {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
+		return
+	}
+
+	c.IndentedJSON(http.StatusAccepted, created)
 }
 
 func main() {
@@ -202,6 +229,8 @@ func main() {
 	r.PUT("/passengers/:id", updatePassenger)
 	r.PATCH("/passengers/:id", patchPassenger)
 	r.DELETE("/passengers/:id", removePassenger)
+
+	r.POST("/travelRequests", createTravelRequest)
 
 	r.Run("localhost:8080")
 }

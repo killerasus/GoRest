@@ -1,39 +1,42 @@
 [
   {
-    "name": "GoDrivers",
     "requests": [
       {
-        "endpoint": "http://localhost:<<port>>",
-        "v": "1",
-        "preRequestScript": "",
-        "params": [],
-        "method": "GET",
         "body": {
           "contentType": null,
           "body": null
         },
-        "name": "Home",
         "headers": [],
+        "method": "GET",
+        "endpoint": "http://localhost:<<port>>",
+        "v": "1",
+        "preRequestScript": "",
+        "name": "Home",
         "testScript": "",
+        "params": [],
         "auth": {
-          "key": "",
-          "authType": "none",
           "value": "",
+          "addTo": "Headers",
+          "key": "",
           "authActive": true,
-          "addTo": "Headers"
+          "authType": "none"
         }
       }
     ],
-    "v": 1,
     "folders": [
       {
-        "v": 1,
-        "name": "Drivers",
-        "folders": [],
         "requests": [
           {
-            "testScript": "",
+            "body": {
+              "body": null,
+              "contentType": null
+            },
+            "headers": [],
             "params": [],
+            "testScript": "",
+            "endpoint": "http://localhost:<<port>>/drivers",
+            "preRequestScript": "",
+            "v": "1",
             "auth": {
               "authActive": true,
               "addTo": "Headers",
@@ -41,257 +44,282 @@
               "authType": "none",
               "key": ""
             },
+            "name": "Get Drivers",
+            "method": "GET"
+          },
+          {
+            "params": [],
+            "headers": [],
+            "name": "Get Driver by Id",
+            "method": "GET",
+            "v": "1",
             "body": {
               "contentType": null,
               "body": null
             },
-            "v": "1",
             "preRequestScript": "",
-            "name": "Get Drivers",
-            "method": "GET",
-            "headers": [],
-            "endpoint": "http://localhost:<<port>>/drivers"
-          },
-          {
-            "params": [],
-            "method": "GET",
-            "v": "1",
-            "body": {
-              "body": null,
-              "contentType": null
-            },
-            "name": "Get Driver by Id",
-            "preRequestScript": "",
-            "endpoint": "http://localhost:<<port>>/drivers/1",
-            "testScript": "",
-            "headers": [],
             "auth": {
-              "addTo": "Headers",
-              "authActive": true,
               "authType": "none",
+              "authActive": true,
               "key": "",
+              "addTo": "Headers",
               "value": ""
-            }
+            },
+            "endpoint": "http://localhost:<<port>>/drivers/1",
+            "testScript": ""
           },
           {
+            "method": "PUT",
             "auth": {
+              "authActive": true,
+              "addTo": "Headers",
               "authType": "none",
               "value": "",
-              "authActive": true,
-              "key": "",
-              "addTo": "Headers"
+              "key": ""
             },
+            "endpoint": "http://localhost:<<port>>/drivers/1",
             "name": "Update Driver by Id",
+            "v": "1",
             "params": [],
             "testScript": "",
             "preRequestScript": "",
-            "endpoint": "http://localhost:<<port>>/drivers/1",
-            "headers": [],
             "body": {
               "body": "{\n    \"name\": \"Bernardo\",\n    \"birthdate\": \"1986-03-18T03:00:00.000Z\"\n}",
               "contentType": "application/json"
             },
-            "v": "1",
-            "method": "PUT"
+            "headers": []
           },
           {
-            "headers": [],
-            "auth": {
-              "authActive": true,
-              "value": "",
-              "addTo": "Headers",
-              "authType": "none",
-              "key": ""
-            },
-            "params": [],
-            "testScript": "",
-            "body": {
-              "contentType": null,
-              "body": null
-            },
             "endpoint": "http://localhost:<<port>>/drivers/1",
+            "preRequestScript": "",
             "method": "DELETE",
+            "headers": [],
             "name": "Delete Driver",
             "v": "1",
+            "params": [],
+            "body": {
+              "body": null,
+              "contentType": null
+            },
+            "testScript": "",
+            "auth": {
+              "addTo": "Headers",
+              "authType": "none",
+              "authActive": true,
+              "value": "",
+              "key": ""
+            }
+          },
+          {
+            "v": "1",
+            "body": {
+              "body": "{\n    \"name\": \"Bernardo\"\n}",
+              "contentType": "application/json"
+            },
+            "testScript": "",
+            "params": [],
+            "endpoint": "http://localhost:<<port>>/drivers/1",
+            "auth": {
+              "authActive": true,
+              "authType": "none",
+              "addTo": "Headers",
+              "value": "",
+              "key": ""
+            },
+            "method": "PATCH",
+            "name": "Patch Driver Name",
+            "headers": [],
             "preRequestScript": ""
+          },
+          {
+            "v": "1",
+            "testScript": "",
+            "preRequestScript": "",
+            "params": [],
+            "auth": {
+              "authType": "none",
+              "authActive": true,
+              "key": "",
+              "addTo": "Headers",
+              "value": ""
+            },
+            "endpoint": "http://localhost:<<port>>/drivers",
+            "method": "POST",
+            "body": {
+              "body": "{\n    \"name\": \"João\",\n    \"birthdate\": \"1986-08-18T03:00:00.000Z\"\n}",
+              "contentType": "application/json"
+            },
+            "name": "Create Driver",
+            "headers": []
+          }
+        ],
+        "folders": [],
+        "name": "Drivers",
+        "v": 1
+      },
+      {
+        "v": 1,
+        "folders": [],
+        "requests": [
+          {
+            "testScript": "",
+            "endpoint": "http://localhost:<<port>>/passengers",
+            "method": "GET",
+            "v": "1",
+            "name": "Get Passengers",
+            "auth": {
+              "authActive": true,
+              "authType": "none",
+              "key": "",
+              "value": "",
+              "addTo": "Headers"
+            },
+            "preRequestScript": "",
+            "params": [],
+            "body": {
+              "body": null,
+              "contentType": null
+            },
+            "headers": []
+          },
+          {
+            "preRequestScript": "",
+            "method": "GET",
+            "name": "Get Passenger by Id",
+            "headers": [],
+            "v": "1",
+            "body": {
+              "body": null,
+              "contentType": null
+            },
+            "endpoint": "http://localhost:<<port>>/passengers/1",
+            "params": [],
+            "testScript": "",
+            "auth": {
+              "key": "",
+              "addTo": "Headers",
+              "authActive": true,
+              "value": "",
+              "authType": "none"
+            }
           },
           {
             "body": {
               "contentType": "application/json",
               "body": "{\n    \"name\": \"Bernardo\"\n}"
             },
+            "headers": [],
+            "endpoint": "http://localhost:<<port>>/passengers/1",
             "v": "1",
-            "testScript": "",
-            "endpoint": "http://localhost:<<port>>/drivers/1",
+            "name": "Update Passenger",
+            "method": "PUT",
             "preRequestScript": "",
-            "name": "Patch Driver Name",
-            "params": [],
+            "testScript": "",
             "auth": {
-              "authActive": true,
-              "value": "",
               "authType": "none",
+              "value": "",
+              "authActive": true,
               "key": "",
               "addTo": "Headers"
             },
-            "headers": [],
-            "method": "PATCH"
-          },
-          {
-            "preRequestScript": "",
-            "name": "Create Driver",
-            "body": {
-              "body": "{\n    \"name\": \"João\",\n    \"birthdate\": \"1986-08-18T03:00:00.000Z\"\n}",
-              "contentType": "application/json"
-            },
-            "headers": [],
-            "method": "POST",
-            "auth": {
-              "value": "",
-              "authType": "none",
-              "addTo": "Headers",
-              "key": "",
-              "authActive": true
-            },
-            "v": "1",
-            "testScript": "",
-            "endpoint": "http://localhost:<<port>>/drivers",
             "params": []
-          }
-        ]
-      },
-      {
-        "v": 1,
-        "name": "Passengers",
-        "folders": [],
-        "requests": [
-          {
-            "v": "1",
-            "endpoint": "http://localhost:<<port>>/passengers",
-            "name": "Get Passengers",
-            "params": [],
-            "headers": [],
-            "method": "GET",
-            "auth": {
-              "authActive": true,
-              "addTo": "Headers",
-              "value": "",
-              "authType": "none",
-              "key": ""
-            },
-            "preRequestScript": "",
-            "testScript": "",
-            "body": {
-              "contentType": null,
-              "body": null
-            }
           },
           {
-            "v": "1",
-            "endpoint": "http://localhost:<<port>>/passengers/1",
-            "name": "Get Passenger by Id",
-            "params": [],
-            "headers": [],
-            "method": "GET",
+            "method": "DELETE",
             "auth": {
-              "addTo": "Headers",
+              "value": "",
+              "key": "",
               "authActive": true,
               "authType": "none",
-              "key": "",
-              "value": ""
+              "addTo": "Headers"
             },
+            "v": "1",
             "preRequestScript": "",
+            "params": [],
             "testScript": "",
+            "headers": [],
+            "name": "Delete Passenger",
+            "endpoint": "http://localhost:<<port>>/passengers/1",
             "body": {
               "body": null,
               "contentType": null
             }
           },
           {
-            "v": "1",
-            "endpoint": "http://localhost:<<port>>/passengers/1",
-            "name": "Update Passenger",
-            "params": [],
-            "headers": [],
-            "method": "PUT",
-            "auth": {
-              "authType": "none",
-              "value": "",
-              "authActive": true,
-              "key": "",
-              "addTo": "Headers"
-            },
             "preRequestScript": "",
-            "testScript": "",
-            "body": {
-              "body": "{\n    \"name\": \"Bernardo\"\n}",
-              "contentType": "application/json"
-            }
-          },
-          {
-            "v": "1",
-            "endpoint": "http://localhost:<<port>>/passengers/1",
-            "name": "Delete Passenger",
-            "params": [],
-            "headers": [],
-            "method": "DELETE",
-            "auth": {
-              "authActive": true,
-              "value": "",
-              "addTo": "Headers",
-              "authType": "none",
-              "key": ""
-            },
-            "preRequestScript": "",
-            "testScript": "",
-            "body": {
-              "contentType": null,
-              "body": null
-            }
-          },
-          {
-            "v": "1",
-            "endpoint": "http://localhost:<<port>>/passengers/1",
             "name": "Patch Passenger Name",
+            "endpoint": "http://localhost:<<port>>/passengers/1",
+            "auth": {
+              "key": "",
+              "authActive": true,
+              "addTo": "Headers",
+              "value": "",
+              "authType": "none"
+            },
+            "testScript": "",
             "params": [],
+            "v": "1",
             "headers": [],
             "method": "PATCH",
-            "auth": {
-              "authActive": true,
-              "value": "",
-              "authType": "none",
-              "key": "",
-              "addTo": "Headers"
-            },
-            "preRequestScript": "",
-            "testScript": "",
             "body": {
               "contentType": "application/json",
               "body": "{\n    \"name\": \"Bernardo\"\n}"
             }
           },
           {
-            "v": "1",
-            "endpoint": "http://localhost:<<port>>/passengers",
+            "method": "POST",
+            "headers": [],
+            "preRequestScript": "",
+            "params": [],
             "name": "Create Passenger",
+            "v": "1",
+            "auth": {
+              "authActive": true,
+              "addTo": "Headers",
+              "key": "",
+              "value": "",
+              "authType": "none"
+            },
+            "endpoint": "http://localhost:<<port>>/passengers",
+            "testScript": "",
+            "body": {
+              "contentType": "application/json",
+              "body": "{\n    \"name\": \"José\"\n}"
+            }
+          }
+        ],
+        "name": "Passengers"
+      },
+      {
+        "v": 1,
+        "name": "Travels",
+        "folders": [],
+        "requests": [
+          {
+            "v": "1",
+            "endpoint": "http://localhost:<<port>>/travelRequests",
+            "name": "Create Travel Request",
             "params": [],
             "headers": [],
             "method": "POST",
             "auth": {
+              "authActive": true,
+              "addTo": "Headers",
               "value": "",
               "authType": "none",
-              "addTo": "Headers",
-              "key": "",
-              "authActive": true
+              "key": ""
             },
             "preRequestScript": "",
             "testScript": "",
             "body": {
-              "body": "{\n    \"name\": \"José\"\n}",
-              "contentType": "application/json"
+              "contentType": "application/json",
+              "body": "{\n  \"passenger\": \"a84f09d0-df70-4a94-a0b0-2643502e2e53\",\n  \"origin\": \"Baltimore\",\n  \"destination\": \"New York\"\n}"
             }
           }
         ]
       }
-    ]
+    ],
+    "name": "GoDrivers",
+    "v": 1
   }
 ]
